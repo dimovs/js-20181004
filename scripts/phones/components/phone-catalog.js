@@ -1,14 +1,18 @@
-export default class PhoneCatalog {
-	constructor({element, phones}) {
+import Component from '../../component.js';
+
+export default class PhoneCatalog extends Component {
+	constructor({element, phones, onPhoneSelected}) {
+		super({element});
 		this._element = element;
 		this._phones = phones;
+		this._onPhoneSelected = onPhoneSelected;
 		this._render();
 		this._element.addEventListener('click', (event) => {
 			let phoneElement = event.target.closest('[data-element="phone-item"]');
 			if (!phoneElement) {
 				return;
 			}
-			console.log(phoneElement.dataset.phoneId);
+			this._onPhoneSelected(phoneElement.dataset.phoneId);
 		})
 	}
 
@@ -18,7 +22,7 @@ export default class PhoneCatalog {
 	      ${this._phones.map(phone => `
 	      	<li class="thumbnail" data-element="phone-item" data-phone-id=${phone.id}>
 	          <a href="#${phone.id}" class="thumb">
-	            <img alt="${phone.name}">
+	            <img alt="${phone.name}" src="${phone.imageUrl}">
 	          </a>
 
 	          <div class="phones__btn-buy-wrapper">

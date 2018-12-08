@@ -1,4 +1,5 @@
 import PhoneCatalog from './components/phone-catalog.js';
+import PhoneViewer from './components/phone-viewer.js';
 import PhoneService from './phone-service.js';
 
 export default class PhonesPage {
@@ -6,9 +7,18 @@ export default class PhonesPage {
 		this._element = element;
 		this._render();
 
-		new PhoneCatalog({
+		this._catalog = new PhoneCatalog({
 			element: this._element.querySelector('[data-component="phone-catalog"]'),
 			phones: PhoneService.getAll(),
+			onPhoneSelected: (phoneId) => {
+				const phoneDetails = PhoneService.getOneById(phoneId);
+				this._catalog.hide();
+				this._viewer.show(phoneDetails);
+			}
+		});
+
+		this._viewer = new PhoneViewer({
+			element: this._element.querySelector('[data-component="phone-viewer"]'),
 		});
 	}
 
@@ -46,6 +56,7 @@ export default class PhonesPage {
 	      <!--Main content-->
 	      <div class="col-md-10">
 	      	<div data-component="phone-catalog"></div>
+	      	<div data-component="phone-viewer"></div>
 	      </div>
 
 	    </div>
