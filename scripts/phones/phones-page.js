@@ -1,5 +1,6 @@
 import PhoneCatalog from './components/phone-catalog.js';
 import PhoneViewer from './components/phone-viewer.js';
+import ShoppingCart from './components/shopping-cart.js';
 import PhoneService from './phone-service.js';
 
 export default class PhonesPage {
@@ -19,6 +20,17 @@ export default class PhonesPage {
 
 		this._viewer = new PhoneViewer({
 			element: this._element.querySelector('[data-component="phone-viewer"]'),
+			onBack: () => {
+				this._catalog.show();
+				this._viewer.hide();
+			},
+			onAdd: (phoneId) => {
+				this._cart.add(phoneId);
+			},
+		});
+
+		this._cart = new ShoppingCart({
+			element: this._element.querySelector('[data-component="shopping-cart"]'),
 		});
 	}
 
@@ -43,14 +55,7 @@ export default class PhonesPage {
 	          </p>
 	        </section>
 
-	        <section>
-	          <p>Shopping Cart</p>
-	          <ul>
-	            <li>Phone 1</li>
-	            <li>Phone 2</li>
-	            <li>Phone 3</li>
-	          </ul>
-	        </section>
+					<div data-component="shopping-cart"></div>
 	      </div>
 
 	      <!--Main content-->
