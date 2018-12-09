@@ -4,7 +4,6 @@ export default class PhoneCatalog extends Component {
 	constructor({element, phones, onPhoneSelected, onAdd}) {
 		super({element});
 		this._phones = phones;
-		this._onAdd = onAdd;
 		this._render();
 
 		this.on('click', 'phone-link', (event) => {
@@ -16,7 +15,10 @@ export default class PhoneCatalog extends Component {
 		});
 		this.on('click', 'add-button', (event) => {
 			const phoneElement = event.target.closest('[data-element="phone-item"]');
-			this._onAdd(phoneElement.dataset.phoneId);
+			let customEvent = new CustomEvent('add', {
+				detail: phoneElement.dataset.phoneId,
+			});
+			this._element.dispatchEvent(customEvent);
 		});
 	}
 

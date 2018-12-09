@@ -24,4 +24,8 @@ export default class Component {
 			callback(event);
 		})
 	}
+
+	subscribe(eventName, callback) {
+		this._element.addEventListener(eventName, callback)
+	}
 }
