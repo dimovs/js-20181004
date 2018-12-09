@@ -26,6 +26,15 @@ export default class Component {
 	}
 
 	subscribe(eventName, callback) {
-		this._element.addEventListener(eventName, callback)
+		this._element.addEventListener(eventName, (event) => {
+			callback(event.detail);
+		})
+	}
+
+	emit(eventName, data) {
+		let customEvent = new CustomEvent(eventName, {
+			detail: data,
+		});
+		this._element.dispatchEvent(customEvent);
 	}
 }

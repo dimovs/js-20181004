@@ -1,24 +1,18 @@
 import Component from '../../component.js';
 
 export default class PhoneCatalog extends Component {
-	constructor({element, phones, onPhoneSelected, onAdd}) {
+	constructor({element, phones}) {
 		super({element});
 		this._phones = phones;
 		this._render();
 
 		this.on('click', 'phone-link', (event) => {
 			const phoneElement = event.target.closest('[data-element="phone-item"]');
-			let customEvent = new CustomEvent('phone-selected', {
-				detail: phoneElement.dataset.phoneId,
-			});
-			this._element.dispatchEvent(customEvent);
+			this.emit('phone-selected', phoneElement.dataset.phoneId);
 		});
 		this.on('click', 'add-button', (event) => {
 			const phoneElement = event.target.closest('[data-element="phone-item"]');
-			let customEvent = new CustomEvent('add', {
-				detail: phoneElement.dataset.phoneId,
-			});
-			this._element.dispatchEvent(customEvent);
+			this.emit('add', phoneElement.dataset.phoneId);
 		});
 	}
 

@@ -19,13 +19,11 @@ export default class PhonesPage {
 			phones: PhoneService.getAll(),
 		});
 
-		this._catalog.subscribe('add', (event) => {
-			const phoneId = event.detail;
+		this._catalog.subscribe('add', (phoneId) => {
 			this._cart.add(phoneId);
 		},)
 
-		this._catalog.subscribe('phone-selected', (event) => {
-			const phoneId = event.detail;
+		this._catalog.subscribe('phone-selected', (phoneId) => {
 			const phoneDetails = PhoneService.getOneById(phoneId);
 			this._catalog.hide();
 			this._viewer.show(phoneDetails);
