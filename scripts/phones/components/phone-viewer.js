@@ -6,30 +6,16 @@ export default class PhoneViewer extends Component {
 		this._onAdd = onAdd;
 		this._onBack = onBack;
 
-		this._element.addEventListener('click', (event) => {
-			const smallImage = event.target.closest('[data-element="small-image"]');
-			if (!smallImage) {
-				return;
-			}
-			this._currentImage = smallImage.src;
-			this._render();
-		});
-
-		this._element.addEventListener('click', (event) => {
-			const button = event.target.closest('[data-element="back-button"]');
-			if (!button) {
-				return;
-			}
+		this.on('click', 'add-button', (event) => {
+			this._onAdd(this._phone.id);
+		})
+		this.on('click', 'back-button', (event) => {
 			this._onBack();
 		});
-
-		this._element.addEventListener('click', (event) => {
-			const button = event.target.closest('[data-element="add-button"]');
-			if (!button) {
-				return;
-			}
-			this._onAdd(this._phone.id);
-		});
+		this.on('click', 'small-image', (event) => {
+			this._currentImage = event.delegateTarget.src;
+			this._render();	
+		})
 	}
 
 	show(phone) {
