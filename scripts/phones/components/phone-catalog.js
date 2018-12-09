@@ -3,7 +3,6 @@ import Component from '../../component.js';
 export default class PhoneCatalog extends Component {
 	constructor({element, phones, onPhoneSelected}) {
 		super({element});
-		this._element = element;
 		this._phones = phones;
 		this._onPhoneSelected = onPhoneSelected;
 		this._render();
