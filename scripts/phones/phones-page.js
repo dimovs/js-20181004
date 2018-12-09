@@ -8,6 +8,12 @@ export default class PhonesPage {
 		this._element = element;
 		this._render();
 
+		this._initCatalog();
+		this._initViewer();
+		this._initShoppingCart();
+	}
+
+	_initCatalog() {
 		this._catalog = new PhoneCatalog({
 			element: this._element.querySelector('[data-component="phone-catalog"]'),
 			phones: PhoneService.getAll(),
@@ -20,7 +26,9 @@ export default class PhonesPage {
 				this._cart.add(phoneId);
 			},
 		});
+	}
 
+	_initViewer() {
 		this._viewer = new PhoneViewer({
 			element: this._element.querySelector('[data-component="phone-viewer"]'),
 			onBack: () => {
@@ -30,8 +38,10 @@ export default class PhonesPage {
 			onAdd: (phoneId) => {
 				this._cart.add(phoneId);
 			},
-		});
+		});		
+	}
 
+	_initShoppingCart() {
 		this._cart = new ShoppingCart({
 			element: this._element.querySelector('[data-component="shopping-cart"]'),
 		});
