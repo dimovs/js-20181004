@@ -15,7 +15,10 @@ export default class PhonesPage {
 				const phoneDetails = PhoneService.getOneById(phoneId);
 				this._catalog.hide();
 				this._viewer.show(phoneDetails);
-			}
+			},
+			onAdd: (phoneId) => {
+				this._cart.add(phoneId);
+			},
 		});
 
 		this._viewer = new PhoneViewer({

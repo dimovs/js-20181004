@@ -3,10 +3,7 @@ import Component from '../../component.js';
 export default class ShoppingCart extends Component {
 	constructor({element}) {
 		super({element});
-		this._items = {
-			samsung: 12,
-			nokia: 3,
-		};
+		this._items = {};
 		this._render();
 
 		this.on('click', 'remove-button', (event) => {
