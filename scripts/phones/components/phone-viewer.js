@@ -1,16 +1,14 @@
 import Component from '../../component.js';
 
 export default class PhoneViewer extends Component {
-	constructor({element, onAdd, onBack}) {
+	constructor({element}) {
 		super({element});
-		this._onAdd = onAdd;
-		this._onBack = onBack;
 
-		this.on('click', 'add-button', (event) => {
-			this._onAdd(this._phone.id);
+		this.on('click', 'add-button', () => {
+			this.emit('add', this._phone.id);
 		})
-		this.on('click', 'back-button', (event) => {
-			this._onBack();
+		this.on('click', 'back-button', () => {
+			this.emit('back');
 		});
 		this.on('click', 'small-image', (event) => {
 			this._currentImage = event.delegateTarget.src;
