@@ -1,6 +1,7 @@
 import PhoneCatalog from './components/phone-catalog.js';
 import PhoneViewer from './components/phone-viewer.js';
 import ShoppingCart from './components/shopping-cart.js';
+import Filter from './components/filter.js';
 import PhoneService from './phone-service.js';
 
 export default class PhonesPage {
@@ -11,17 +12,20 @@ export default class PhonesPage {
 		this._initCatalog();
 		this._initViewer();
 		this._initShoppingCart();
+		this._initFilter();
 	}
 
 	_initCatalog() {
 		this._catalog = new PhoneCatalog({
 			element: this._element.querySelector('[data-component="phone-catalog"]'),
-			phones: PhoneService.getAll(),
 		});
+
+		const phones = PhoneService.getAll();
+		this._catalog.show(phones);
 
 		this._catalog.subscribe('add', (phoneId) => {
 			this._cart.add(phoneId);
-		},)
+		});
 
 		this._catalog.subscribe('phone-selected', (phoneId) => {
 			const phoneDetails = PhoneService.getOneById(phoneId);
@@ -42,12 +46,23 @@ export default class PhonesPage {
 
 		this._viewer.subscribe('add', (phoneId) => {
 			this._cart.add(phoneId);
-		},);
+		});
 	}
 
 	_initShoppingCart() {
 		this._cart = new ShoppingCart({
 			element: this._element.querySelector('[data-component="shopping-cart"]'),
+		});
+	}
+
+	_initFilter() {
+		this._filter = new Filter({
+			element: document.querySelector('[data-component="filter"]'),
+		});
+
+		this._filter.subscribe('filter', (query) => {
+			const filteredPhones = PhoneService.getAll({query});
+			this._catalog.show(filteredPhones);
 		});
 	}
 
@@ -57,21 +72,7 @@ export default class PhonesPage {
 
 	      <!--Sidebar-->
 	      <div class="col-md-2">
-	        <section>
-	          <p>
-	            Search:
-	            <input>
-	          </p>
-
-	          <p>
-	            Sort by:
-	            <select>
-	              <option value="name">Alphabetical</option>
-	              <option value="age">Newest</option>
-	            </select>
-	          </p>
-	        </section>
-
+					<div data-component="filter"></div>
 					<div data-component="shopping-cart"></div>
 	      </div>
 

@@ -220,13 +220,28 @@ const phoneDetailsFromServer = {
 }
 
 const PhoneService = {
-	getAll() {
-	   return phonesFromServer;
+
+	getAll({query, orderBy} = {}) {
+    let filteredPhones = this._filter(phonesFromServer, query);
+    let sortedPhones = this._sort(filteredPhones, orderBy);
+	  return sortedPhones;
 	},
 
 	getOneById(phoneId) {
 		return phoneDetailsFromServer;
-	}
+	},
+
+  _filter(phones, query) {
+    if (!query) {
+      return phones;
+    }
+    const normalizedQuery = query.toLowerCase();
+    return phones.filter(phone => phone.name.toLowerCase().includes(normalizedQuery));
+  },
+
+  _sort(phones, orderBy) {
+    return phones;
+  }
 }
 
 export default PhoneService;
