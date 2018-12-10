@@ -222,9 +222,16 @@ const phoneDetailsFromServer = {
 const PhoneService = {
 
 	getAll({query, orderBy} = {}) {
-    let filteredPhones = this._filter(phonesFromServer, query);
-    let sortedPhones = this._sort(filteredPhones, orderBy);
-	  return sortedPhones;
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const phones = phonesFromServer;
+        const filteredPhones = this._filter(phones, query);
+        const sortedPhones = this._sort(filteredPhones, orderBy);
+
+        resolve(sortedPhones);
+      }, 1000);
+    });
 	},
 
 	getOneById(phoneId) {
