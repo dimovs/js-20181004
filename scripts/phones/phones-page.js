@@ -76,9 +76,9 @@ export default class PhonesPage {
 			orderBy: this._currentOrderBy
 		});
 
-		phonesPromise.then((phones) => {
+		setTimeout(() => {phonesPromise.then((phones) => {
 			this._catalog.show(phones);
-		})
+		})}, 3000)
 	}
 
 	_render() {
