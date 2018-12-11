@@ -243,31 +243,17 @@ class MyPromise {
 }
 
 const PhoneService = {
-
-	getAll({query, orderBy} = {}) {
-
-      setTimeout(() => {
-        const phones = phonesFromServer;
-        const filteredPhones = this._filter(phones, query);
-        const sortedPhones = this._sort(filteredPhones, orderBy);
-      }, 1000);
-	},
-
-  getAllPromise({query, orderBy} = {}) {
-    let promise = new MyPromise(
+  getAll({query, orderBy} = {}) {
+    return new MyPromise(
       (resolve) => {
-
         setTimeout(() => {
           const phones = phonesFromServer;
           const filteredPhones = this._filter(phones, query);
           const sortedPhones = this._sort(filteredPhones, orderBy);
           resolve(sortedPhones);
         }, 1000);
-
       }
     );
-
-    return promise;
   },
 
 	getOneById(phoneId) { 
