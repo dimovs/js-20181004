@@ -71,14 +71,13 @@ export default class PhonesPage {
 	}
 
 	_showFilteredPhones() {
-		const phonesPromise = PhoneService.getAll({
+		PhoneService.getAll({
 			query: this._currentQuery,
 			orderBy: this._currentOrderBy
-		});
-
-		phonesPromise.then((phones) => {
-			this._catalog.show(phones);
 		})
+			.then((phones) => {
+				this._catalog.show(phones);
+			})
 	}
 
 	_render() {
