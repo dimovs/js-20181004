@@ -1,7 +1,8 @@
 const PhoneService = {
 
 	getAll({query, orderBy} = {}) {
-    return this.sendRequest('api/phones.json')
+    return fetch('api/phones.json')
+      .then((response) => response.json())
       .then((phones) => {
         const filteredPhones = this._filter(phones, query);
         const sortedPhones = this._sort(filteredPhones, orderBy);
@@ -10,24 +11,9 @@ const PhoneService = {
 	},
 
 	getOneById(phoneId) {
-    return this.sendRequest(`api/phones/${phoneId}.json`);
+    return fetch(`api/phones/${phoneId}.json`)
+      .then((response) => response.json());
 	},
-
-  sendRequest(url, {method = 'GET'} = {}) {
-    return new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-      xhr.open(method, url, true);
-      xhr.send();
-
-      xhr.onload = () => {
-        if (xhr.status != 200) {
-          reject(new Error(xhr.status + ': ' + xhr.statusText));
-        } else {
-          resolve(JSON.parse(xhr.responseText));
-        }
-      }
-    });
-  },
 
   _filter(phones, query) {
     if (!query) {
