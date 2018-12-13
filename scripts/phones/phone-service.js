@@ -1,8 +1,10 @@
+// const API_URL = `http://localhost:3000/api`;
+const API_URL = `https://dimovs.github.io/js-20181004/api`;
+
 const PhoneService = {
 
 	getAll({query, orderBy} = {}) {
-    return fetch('api/phones.json')
-      .then((response) => response.json())
+    return this.fetchData('/phones')
       .then((phones) => {
         const filteredPhones = this._filter(phones, query);
         const sortedPhones = this._sort(filteredPhones, orderBy);
@@ -11,9 +13,13 @@ const PhoneService = {
 	},
 
 	getOneById(phoneId) {
-    return fetch(`api/phones/${phoneId}.json`)
-      .then((response) => response.json());
+    return this.fetchData(`/phones/${phoneId}`);
 	},
+
+  fetchData(url, params = {}) {
+    return fetch(`${API_URL}${url}.json`, params)
+      .then((response) => response.json())
+  },
 
   _filter(phones, query) {
     if (!query) {
