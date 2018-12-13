@@ -5,7 +5,13 @@ let file = new static.Server('.', {
 })
 
 function accept(req, res) {
-	file.serve(req, res);
+	if (req.url.startsWith('/api')) {
+		setTimeout(() => {
+			file.serve(req, res);
+		}, 3000)
+	} else {
+		file.serve(req, res);
+	}
 }
 
 http.createServer(accept).listen(3000);

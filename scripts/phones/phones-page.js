@@ -27,9 +27,16 @@ export default class PhonesPage {
 		});
 
 		this._catalog.subscribe('phone-selected', (phoneId) => {
-			const phoneDetails = PhoneService.getOneById(phoneId);
-			this._catalog.hide();
-			this._viewer.show(phoneDetails);
+			PhoneService.getOneById(phoneId)
+				.then(
+					(phoneDetails) => {
+						this._catalog.hide();
+						this._viewer.show(phoneDetails);
+					},
+					(error) => {
+						console.log(error)
+					}
+				);
 		});
 	}
 
