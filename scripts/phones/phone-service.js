@@ -233,7 +233,15 @@ const PhoneService = {
 	},
 
 	getOneById(phoneId) {
-		return phoneDetailsFromServer;
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', `api/phones/${phoneId}.json`, false);
+    xhr.send();
+
+    if (xhr.status != 200) {
+      console.error(xhr.status + ': ' + xhr.statusText);
+    } else {
+      return JSON.parse(xhr.responseText);
+    }
 	},
 
   _filter(phones, query) {

@@ -1,0 +1,23 @@
+{
+  "name": "js-20181004",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dimovs/js-20181004.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dimovs/js-20181004/issues"
+  },
+  "homepage": "https://github.com/dimovs/js-20181004#readme",
+  "devDependencies": {
+    "node-static": "^0.7.11"
+  }
+}
